@@ -7,6 +7,7 @@ import Sidebar from './Sidebar';
 import Loading from './Loading';
 import AuthorsList from './AuthorsList';
 import AuthorDetail from './AuthorDetail';
+import BookList from './BookList';
 
 
 class App extends Component {
@@ -15,18 +16,21 @@ class App extends Component {
     super(props);
     this.state = {
       authors: [],
+      books: [],
       loading: true
     }
   }
 
   componentDidMount() {
-    axios.get('https://the-index-api.herokuapp.com/api/authors/')
-      .then(res => res.data)
-      .then(authors => this.setState({
+    axios.all([
+      axios.get('https://the-index-api.herokuapp.com/api/authors/').then(res => res.data),
+      axios.get('https://the-index-api.herokuapp.com/api/books/').then(res => res.data)
+    ])
+      .then(axios.spread((authors, books) => this.setState({
         authors,
-        filteredAuthors: authors,
-        loading: false,
-      }))
+        books,
+        loading: false
+      })))
       .catch(err => console.error(err));
   }
 
@@ -44,7 +48,13 @@ class App extends Component {
                 <Route exact path='/' render={() => <Redirect to='/authors'/>}/>
                 <Route path='/authors/:authorID' component={AuthorDetail}/>
                 <Route path='/authors/'
+<<<<<<< HEAD
                        render={(props) => <AuthorsList {...props} authors={this.state.authors}/>}/>
+=======
+                       render={() => <AuthorsList authors={this.state.authors}/>}/>
+                <Route path='/books/'
+                       render={() => <BookList books={this.state.books}/>}/>
+>>>>>>> Implement booklist
               </Switch>}
             </div>
           </div>

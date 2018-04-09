@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import axios from 'axios';
 
 import Loading from './Loading';
-import BookRow from './BookRow';
+import BookTable from './BookTable';
 
 class AuthorDetail extends Component {
   constructor(props) {
@@ -33,27 +33,13 @@ class AuthorDetail extends Component {
 
   render() {
     const author = this.state.author;
-    const bookRows = author.books && author.books.map(book =>
-      <BookRow key={book.title} book={book} />);
-
     return this.state.loading ? <Loading /> :
       <div className="author col-xs-10">
         <div>
           <h3>{author.first_name} {author.last_name}</h3>
           <img src={author.imageUrl} className="img-thumbnail"/>
         </div>
-        <table className='mt-3 table'>
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>Authors</th>
-              <th>Color</th>
-            </tr>
-          </thead>
-          <tbody>
-            {bookRows}
-          </tbody>
-        </table>
+        <BookTable books={author.books} />
       </div>;
   }
 }
