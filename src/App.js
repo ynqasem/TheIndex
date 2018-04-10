@@ -44,7 +44,7 @@ class App extends Component {
                 <Route exact path='/' render={() => <Redirect to='/authors'/>}/>
                 <Route path='/authors/:authorID' component={AuthorDetail}/>
                 <Route path='/authors/'
-                       render={() => <AuthorsList authors={this.state.authors}/>}/>
+                       render={(props) => <AuthorsList {...props} authors={this.state.authors}/>}/>
               </Switch>}
             </div>
           </div>
