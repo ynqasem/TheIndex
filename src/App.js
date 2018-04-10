@@ -48,13 +48,15 @@ class App extends Component {
                 <Route exact path='/' render={() => <Redirect to='/authors'/>}/>
                 <Route path='/authors/:authorID' component={AuthorDetail}/>
                 <Route path='/authors/'
-<<<<<<< HEAD
-                       render={(props) => <AuthorsList {...props} authors={this.state.authors}/>}/>
-=======
-                       render={() => <AuthorsList authors={this.state.authors}/>}/>
+                       render={
+                         (props) => <AuthorsList {...props} authors={this.state.authors}/>
+                       }/>
+                <Route path='/books/:bookColor'
+                       render={(props) => <BookList {...props} books={this.state.books}/>} />
                 <Route path='/books/'
-                       render={() => <BookList books={this.state.books}/>}/>
->>>>>>> Implement booklist
+                       render={
+                         (props) => <BookList {...props} books={this.state.books}/>
+                       }/>
               </Switch>}
             </div>
           </div>

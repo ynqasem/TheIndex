@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {Link} from 'react-router-dom';
 
 import SearchBar from './SearchBar';
 import BookTable from './BookTable';
@@ -24,11 +25,17 @@ class BookList extends Component {
   }
 
   render() {
+    const bookColor = this.props.match.params.bookColor;
+    const books = this.state.filteredBooks;
     return (
       <div className="books">
         <h3>Books</h3>
         <SearchBar changeHandler={this.filterBooks} />
-        <BookTable books={this.state.filteredBooks} />
+        {bookColor &&
+          <Link to="/books">
+            <button className="btn">All Books</button>
+          </Link>}
+        <BookTable books={bookColor ? books.filter(book => book.color === bookColor) : books} />
       </div>
     );
   }
