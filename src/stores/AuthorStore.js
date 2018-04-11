@@ -1,8 +1,6 @@
 import {extendObservable} from 'mobx';
 import axios from 'axios';
 
-import bookStore from './BookStore';
-
 class AuthorStore {
   constructor() {
     extendObservable(this, {
