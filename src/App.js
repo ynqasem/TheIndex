@@ -31,6 +31,14 @@ function App(props) {
                      render={
                        props => <AuthorsList {...props} authorStore={authorStore}/>
                      }/>
+              <Route path='/books/:bookColor'
+                     render={
+                       props => <BookList {...props} />
+                     }/>
+              <Route path='/books/'
+                     render={
+                       props => <BookList {...props} />
+                     }/>
             </Switch>}
           </div>
         </div>

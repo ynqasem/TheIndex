@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
+import axios from 'axios';
 
 import SearchBar from './SearchBar';
 import BookTable from './BookTable';
@@ -9,28 +10,24 @@ class BookList extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      books: this.props.books,
-      filteredBooks: this.props.books
+      books: []
     }
-
-    this.filterBooks = this.filterBooks.bind(this);
   }
 
-  filterBooks(query) {
-    query = query.toLowerCase()
-    let filteredBooks = this.state.books.filter(book => {
-      return `${book.title}`.toLowerCase().includes(query);
-    });
-    this.setState({filteredBooks})
+  componentDidMount() {
+    axios.get("https://the-index-api.herokuapp.com/api/books/")
+      .then(res => res.data)
+      .then(books => this.setState({books}))
+      .catch(err => console.error(err));
   }
 
   render() {
     const bookColor = this.props.match.params.bookColor;
-    const books = this.state.filteredBooks;
+    const books = this.state.books;
     return (
       <div className="books">
         <h3>Books</h3>
-        <SearchBar changeHandler={this.filterBooks} />
+        <SearchBar store={{}}/>
         {bookColor &&
           <Link to="/books">
             <button className="btn">All Books</button>
