@@ -10,6 +10,12 @@ function BookRow(props) {
     .reduce((prev, curr) => [prev, ', ', curr]);
   return (
     <tr>
+      <td>
+        <button className={`btn btn-${book.available ? 'success' : 'danger'}`}
+                onClick={() => alert("You need to make me work work work work work")}>
+          {book.available ? 'checkout' : 'return'}
+        </button>
+      </td>
       <td>{book.title}</td>
       <td>{authors}</td>
       <td>

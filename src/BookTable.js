@@ -9,6 +9,7 @@ function BookTable(props) {
     <table className='mt-3 table'>
       <thead>
         <tr>
+          <th></th>
           <th>Name</th>
           <th>Authors</th>
           <th>Color</th>
