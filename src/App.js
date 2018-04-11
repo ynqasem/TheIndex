@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import {Switch, Route, Redirect} from 'react-router-dom';
+import {Switch, Route, Redirect, withRouter} from 'react-router-dom';
+import {observer} from 'mobx-react';
 import axios from 'axios';
 
 // Components
@@ -15,47 +16,37 @@ class App extends Component {
   constructor(props){
     super(props);
     this.state = {
-      authors: [],
-      books: [],
       loading: true
     }
   }
 
   componentDidMount() {
-    axios.all([
-      axios.get('https://the-index-api.herokuapp.com/api/authors/').then(res => res.data),
-      axios.get('https://the-index-api.herokuapp.com/api/books/').then(res => res.data)
-    ])
-      .then(axios.spread((authors, books) => this.setState({
-        authors,
-        books,
-        loading: false
-      })))
+    this.props.authorStore
+      .fetchAllAuthors()
+      .then(() => this.setState({loading: false}))
       .catch(err => console.error(err));
   }
 
   render() {
+    const authorStore = this.props.authorStore;
     return (
       <div id="app" className="container-fluid">
         <div className="row">
           <div className="col-2">
-            <Sidebar unselectAuthor={this.unselectAuthor}/>
+            <Sidebar />
           </div>
           <div className="content col-10">
             {this.state.loading ?
               <Loading /> :
               <Switch>
                 <Route exact path='/' render={() => <Redirect to='/authors'/>}/>
-                <Route path='/authors/:authorID' component={AuthorDetail}/>
+                <Route path='/authors/:authorID'
+                       render={
+                         props => <AuthorDetail {...props} authorStore={authorStore}/>
+                       }/>
                 <Route path='/authors/'
                        render={
-                         (props) => <AuthorsList {...props} authors={this.state.authors}/>
-                       }/>
-                <Route path='/books/:bookColor'
-                       render={(props) => <BookList {...props} books={this.state.books}/>} />
-                <Route path='/books/'
-                       render={
-                         (props) => <BookList {...props} books={this.state.books}/>
+                         props => <AuthorsList {...props} authorStore={authorStore}/>
                        }/>
               </Switch>}
             </div>
@@ -65,4 +56,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default withRouter(observer(App));

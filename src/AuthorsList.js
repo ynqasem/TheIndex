@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {observer} from 'mobx-react';
 
 import AuthorCard from './AuthorCard';
 import SearchBar from './SearchBar';
@@ -8,7 +9,6 @@ class AuthorsList extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      authors: this.props.authors,
       filteredAuthors: this.props.authors
     }
 
@@ -17,7 +17,8 @@ class AuthorsList extends Component {
 
   filterAuthors(query) {
     query = query.toLowerCase()
-    let filteredAuthors = this.state.authors.filter(author => {
+    let authors = this.props.authorStore.authors;
+    let filteredAuthors = authors.filter(author => {
       return `${author.first_name} ${author.last_name}`.toLowerCase().includes(query);
     });
     this.setState({filteredAuthors})
@@ -41,4 +42,4 @@ class AuthorsList extends Component {
   }
 }
 
-export default AuthorsList;
+export default observer(AuthorsList);
