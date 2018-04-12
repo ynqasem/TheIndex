@@ -50,6 +50,7 @@ class App extends Component {
                 <Route path='/authors/'
                        render={(props) => <AuthorsList {...props} authors={this.state.authors}/>}/>
                 <Route path='/books/:authorID' component={AuthorDetail}/>
+                <Route path='/books/:colorName' component={AuthorDetail}/>
                 <Route path='/books/'
                        render={(props) => <BookList {...props} books={this.state.books}/>}/>
 
