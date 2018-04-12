@@ -12,6 +12,7 @@ import BookList from './BookList';
 
 function App(props) {
   const authorStore = props.authorStore;
+  const bookStore = props.bookStore;
   return (
     <div id="app" className="container-fluid">
       <div className="row">
@@ -35,7 +36,7 @@ function App(props) {
                      }/>
               <Route path='/books/'
                      render={
-                       props => <BookList {...props} />
+                       props => <BookList {...props} bookStore={bookStore}/>
                      }/>
             </Switch>}
           </div>
