@@ -13,7 +13,7 @@ function BookRow(props) {
       <td>
         <button className={`btn btn-${book.available ? 'success' : 'danger'}`}
                 onClick={() => alert("You need to make me work work work work work")}>
-          {book.available ? 'checkout' : 'return'}
+          {book.available ? 'borrow' : 'return'}
         </button>
       </td>
       <td>{book.title}</td>

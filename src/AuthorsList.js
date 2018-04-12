@@ -8,7 +8,7 @@ import SearchBar from './SearchBar';
 
       const authors = props.authorStore.filteredAuthors.map(author => (
         <AuthorCard key={author.first_name + author.last_name}
-          author={author} />
+                    author={author}/>
         ));
 
       return (

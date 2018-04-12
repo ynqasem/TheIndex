@@ -6,11 +6,9 @@ class AuthorStore {
     this.authors = [];
     this.query = "";
     this.loading = true;
-    
-    this.fetchAllAuthors();
   }
 
-  fetchAllAuthors() {
+  fetchAuthors() {
     return axios.get('https://the-index-api.herokuapp.com/api/authors/')
             .then(res => res.data)
             .then(authors => {
@@ -21,11 +19,15 @@ class AuthorStore {
   }
 
   get filteredAuthors() {
-    return this.authors.filter(author => {
-      return `${author.first_name} ${author.last_name}`
-                .toLowerCase()
-                .includes(this.query);
-    });
+    if (this.authors) {
+      return this.authors.filter(author => {
+        return `${author.first_name} ${author.last_name}`
+        .toLowerCase()
+        .includes(this.query);
+      });
+    }
+
+    return [];
   }
 
   getAuthorById(id) {
@@ -40,4 +42,7 @@ decorate(AuthorStore, {
   filteredAuthors: computed
 })
 
-export default new AuthorStore();
+const authorStore =  new AuthorStore()
+authorStore.fetchAuthors();
+
+export default authorStore;

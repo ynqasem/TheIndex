@@ -11,7 +11,7 @@ import BookList from './BookList';
 
 
 function App(props) {
-  const authorStore = this.props.authorStore;
+  const authorStore = props.authorStore;
   return (
     <div id="app" className="container-fluid">
       <div className="row">
