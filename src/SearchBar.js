@@ -21,4 +21,4 @@ function SearchBar(props) {
   );
 }
 
-export default observer(SearchBar);
+export default SearchBar;

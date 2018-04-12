@@ -9,7 +9,8 @@ function AuthorsList(props) {
   const authors = props.authorStore.filteredAuthors.map(author => (
     <AuthorCard key={author.first_name + author.last_name}
                 author={author}/>
-    ));
+    )
+  );
 
   return (
     <div className="authors">
